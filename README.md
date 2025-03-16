@@ -23,7 +23,7 @@ Employee-Management-System/
 │   ├── server.js
 │   
 │
-├── client/
+├── frontend/
 │   ├── src/
 │   │   ├── EmployeeList.js
 │   │   └── App.js
@@ -81,7 +81,7 @@ npm install
 
 ### Step 3: Install Frontend
 ```bash
-cd ../client
+cd ../frontend
 npm install
 ```
 
@@ -97,7 +97,7 @@ node server.js
 
 ### Start the Frontend
 ```bash
-cd ../client
+cd ../frontend
 npm start
 ```
 
