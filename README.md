@@ -121,11 +121,3 @@ John Doe - Software Engineer - ₹50000
 [Edit] [Delete]
 ```
 
----
-
-
-
----
-  
-
----
