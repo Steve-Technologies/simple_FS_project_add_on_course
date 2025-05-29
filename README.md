@@ -21,9 +21,9 @@ Employee-Management-System/
 │
 ├── server/
 │   ├── server.js
-│   └── db.sql
+│   
 │
-├── client/
+├── frontend/
 │   ├── src/
 │   │   ├── EmployeeList.js
 │   │   └── App.js
@@ -55,15 +55,33 @@ Delete Employee
 
 ## Setup Guide
 
-### Step 1: Install Backend
+### Step 1: Initialise the Database
+MySQL Database Schema - Run this in phpmyadmin SQL Query
+
+```sql
+CREATE DATABASE employeeDB;
+
+USE employeeDB;
+
+CREATE TABLE employees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50),
+  position VARCHAR(50),
+  salary INT
+);
+```
+
+---
+
+### Step 2: Install Backend
 ```bash
 cd server
 npm install
 ```
 
-### Step 2: Install Frontend
+### Step 3: Install Frontend
 ```bash
-cd ../client
+cd ../frontend
 npm install
 ```
 
@@ -79,25 +97,8 @@ node server.js
 
 ### Start the Frontend
 ```bash
-cd ../client
+cd ../frontend
 npm start
-```
-
----
-
-## MySQL Database Schema (`db.sql`)
-
-```sql
-CREATE DATABASE employeeDB;
-
-USE employeeDB;
-
-CREATE TABLE employees (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50),
-  position VARCHAR(50),
-  salary INT
-);
 ```
 
 ---
