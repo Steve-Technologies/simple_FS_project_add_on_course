@@ -9,22 +9,28 @@ function EmployeeList() {
     const [isEditing, setIsEditing] = useState(false);
     const [editId, setEditId] = useState(null);
 
+    const config = {
+        headers: { Authorization: localStorage.getItem('token') }
+    };
+
+
+
     // 📌 Fetch Employees
     const fetchEmployees = async () => {
-        const response = await axios.get('http://localhost:5000/getEmployees');
+        const response = await axios.get('http://localhost:5000/getEmployees', config);
         setEmployees(response.data);
     };
 
     // 📌 Add Employee
     const addEmployee = async () => {
-        await axios.post('http://localhost:5000/addEmployee', { name, position, salary });
+        await axios.post('http://localhost:5000/addEmployee', { name, position, salary }, config);
         fetchEmployees();
         clearInputFields();
     };
 
     // 📌 Update Employee
     const updateEmployee = async () => {
-        await axios.put(`http://localhost:5000/updateEmployee/${editId}`, { name, position, salary });
+        await axios.put(`http://localhost:5000/updateEmployee/${editId}`, { name, position, salary }, config);
         fetchEmployees();
         clearInputFields();
         setIsEditing(false); // Turn off edit mode
@@ -32,7 +38,7 @@ function EmployeeList() {
 
     // 📌 Delete Employee
     const deleteEmployee = async (id) => {
-        await axios.delete(`http://localhost:5000/deleteEmployee/${id}`);
+        await axios.delete(`http://localhost:5000/deleteEmployee/${id}`,config);
         fetchEmployees();
     };
 
