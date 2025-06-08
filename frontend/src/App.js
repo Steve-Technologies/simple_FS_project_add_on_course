@@ -15,26 +15,30 @@ function App() {
 
   if (!isLoggedIn) {
     return (
-      <div>
-        {showSignup ? (
-          <>
-            <Signup onSuccess={() => setShowSignup(false)} />
-            <p>Already have an account? <button onClick={() => setShowSignup(false)}>Login</button></p>
-          </>
-        ) : (
-          <>
-            <Login onLogin={() => setIsLoggedIn(true)} />
-            <p>No account? <button onClick={() => setShowSignup(true)}>Signup</button></p>
-          </>
-        )}
+      <div style={{ display: 'grid', placeItems: 'center', height: '100vh', width: '100vw' }}>
+        <div >
+          {showSignup ? (
+            <>
+              <Signup onSuccess={() => setShowSignup(false)} />
+              <p>Already have an account? <button onClick={() => setShowSignup(false)}>Login</button></p>
+            </>
+          ) : (
+            <>
+              <Login onLogin={() => setIsLoggedIn(true)} />
+              <p>No account? <button onClick={() => setShowSignup(true)}>Signup</button></p>
+            </>
+          )}
+        </div>
       </div>
-    );
+    )
   }
 
   return (
     <div>
-      <h1>Employee Management System</h1>
-      <button onClick={logout}>Logout</button>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100vw', paadding: '1rem' }}>
+        <h1>Employee Management System</h1>
+        <button onClick={logout}>Logout</button>
+      </div>
       <EmployeeList />
     </div>
   );

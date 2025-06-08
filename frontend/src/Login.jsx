@@ -16,12 +16,14 @@ function Login({ onLogin }) {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+            <h2 style={{ textAlign: 'center' }}>Login</h2>
             <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
             <button onClick={login}>Login</button>
         </div>
+
     );
 }
 

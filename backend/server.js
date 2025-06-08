@@ -107,12 +107,57 @@ app.post('/addEmployee', verifyToken, (req, res) => {
   });
 });
 
-app.get('/getEmployees', verifyToken, (req, res) => {
-  db.query('SELECT * FROM employees', (err, result) => {
-    if (err) throw err;
-    res.send(result);
+app.get('/salaryBounds', verifyToken, (req, res) => {
+  const sql = 'SELECT MIN(salary) AS minSalary, MAX(salary) AS maxSalary FROM employees';
+  db.query(sql, (err, result) => {
+    if (err) return res.status(500).send('Error fetching salary bounds');
+    res.json(result[0]);
   });
 });
+
+
+app.get('/getEmployees', verifyToken, (req, res) => {
+  const { page = 1, search = '', position = '', minSalary = 0, maxSalary = Number.MAX_SAFE_INTEGER } = req.query;
+
+  const limit = 5;
+  const offset = (page - 1) * limit;
+
+  let baseSql = 'SELECT * FROM employees WHERE 1=1';
+  const params = [];
+
+  // 🔍 Search by name
+  if (search) {
+    baseSql += ' AND (name LIKE ?)';
+    params.push(`%${search}%`);
+  }
+
+  // 🎯 Filter by position
+  if (position) {
+    baseSql += ' AND position = ?';
+    params.push(position);
+  }
+
+  // 💰 Filter by salary range
+  baseSql += ' AND salary BETWEEN ? AND ?';
+  params.push(Number(minSalary), Number(maxSalary));
+
+  // Count and Paginate
+  const countSql = `SELECT COUNT(*) as count FROM (${baseSql}) AS total`;
+  const dataSql = `${baseSql} LIMIT ? OFFSET ?`;
+
+  db.query(countSql, params, (err, countResult) => {
+    if (err) return res.status(500).send('Error fetching count');
+
+    const total = countResult[0].count;
+
+    db.query(dataSql, [...params, limit, offset], (err, result) => {
+      if (err) return res.status(500).send('Error fetching employees');
+      res.json({ data: result, total });
+    });
+  });
+});
+
+
 
 app.put('/updateEmployee/:id', verifyToken, (req, res) => {
   const { name, position, salary } = req.body;

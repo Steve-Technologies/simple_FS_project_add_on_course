@@ -102,6 +102,12 @@ npm start
 ```
 
 ---
+## Test Creds
+```bash
+test@gmail.com
+test123
+```
+---
 
 ## Frontend UI Flow
 
