@@ -102,7 +102,7 @@ app.post('/addEmployee', verifyToken, (req, res) => {
   const { name, position, salary } = req.body;
   const sql = 'INSERT INTO employees (name, position, salary) VALUES (?, ?, ?)';
   db.query(sql, [name, position, salary], (err, result) => {
-    if (err) return res.status(500).send('Error adding employee');
+    if (err) return res.send('Error Adding Employee');
     res.send('Employee added successfully');
   });
 });
